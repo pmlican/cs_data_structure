@@ -121,6 +121,7 @@ int main() {
             case 3: {
                 printf("erase a item at %d from Vector = %d\n", ind, erase(v, ind));
             }
+                break;
             default:
                 break;
         }
