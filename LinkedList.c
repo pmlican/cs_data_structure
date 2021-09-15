@@ -97,6 +97,18 @@ void output(LinkedList *l) {
     printf("NULL\n");
     return;
 }
+void reverse(LinkedList *l) {
+    if (l == NULL) return;
+    Node *p = l->head.next, *q;
+    l->head.next = NULL;
+    while(p != NULL) {
+        q = p->next;
+        p->next = l->head.next;
+        l->head.next = p;
+        p = q;
+    }
+    return;
+}
 
 int main() {
     srand(time(0));
@@ -108,7 +120,11 @@ int main() {
         int ind = rand() % (l->length + 3) - 1;//左右扩大两个，两个无效的数字-1和length+1
         switch (op) {
             case 0:
-            case 1:
+            case 1: {
+                printf("reverse the list!\n");
+                reverse(l);
+            }
+                break;
             case 2: {
                 printf("insert %d at %d to list = %d\n", val, ind, insert(l, ind, val));
             }
