@@ -147,6 +147,7 @@ void printf_nine() {
     }
 }
 
+// 指定范围的质数，筛法列举质数， 如果N是合数，则它有一个因子d满足1<d≤sqrt(N) 
 void filtrate() {
     int n = 15;
     int mark[16] = {
@@ -170,4 +171,26 @@ void filtrate() {
             printf("%d\n", c);
         }
     }
+}
+//二分法求方程近似解
+double bisection(int p, int q, double (*func)(int, int, double)) {
+    double x1 = -20;
+    double x2 = 20;
+    double x = 0;
+    while(fabs((*func)(p, q, x)) > EPSILON) {
+        x = (x1 + x2) / 2.0;
+        double fx1 = (*func)(p, q, x1);
+        double fx =  (*func)(p, q, x);
+        if(fx * fx1 > 0){
+            x1 = x;
+        } else {
+            x2 = x;
+        }
+   
+    }
+    return x;
+}
+
+double f(int p, int q, double x) {
+    return p * x + q;
 }
