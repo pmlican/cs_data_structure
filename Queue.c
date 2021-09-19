@@ -28,7 +28,7 @@ int expand(Queue *q) {
     int *p; //新地址
     while (extr_size) {
         p = (int *)malloc(sizeof(int) * (q->length + extr_size));
-        if (q != NULL) break;
+        if (p != NULL) break;
         extr_size >>= 1; //减小一半
     }
     if (p == NULL) return 0;
