@@ -70,6 +70,37 @@ void merge_sort(int *num, int l, int r) {
     return;
 }
 
+void merge(int num[], int temp[], int l, int mid, int r) {
+    int i = l, j = mid + 1, k = l;
+    while (i != mid + 1 && j != r + 1) {
+        if (num[i] > num[j]) {
+            temp[k++] = num[j++];
+        } else {
+            temp[k++] = num[i++];
+        }
+    }
+    while (i != mid + 1) {
+        temp[k++] = num[i++];
+    }
+    while (j != r + 1) {
+        temp[k++] = num[j++];
+    }
+    //拷贝回原数组
+    for (i = l; i <= r; i++) {
+        num[i] = temp[i];
+    }
+}
+
+//百度百科易懂版本
+void mergeSort(int num[], int temp[], int l, int r) {
+    if (l < r) {
+        int mid = l + (r - l) / 2; //避免溢出int
+        mergeSort(num, temp, l, mid);
+        mergeSort(num, temp, mid + 1, r);
+        merge(num, temp, l, mid, r);
+    }
+}
+
 //生成随机数组
 void randint(int *num, int n) {
     while (n--) num[n] = rand() % 100;
@@ -94,6 +125,13 @@ int main() {
     TEST(arr, MAX_N, insert_sort, num, MAX_N);
     TEST(arr, MAX_N, bubble_sort, num, MAX_N);
     TEST(arr, MAX_N, merge_sort, num, 0, MAX_N - 1);
+    int temp[MAX_N];
+    TEST(arr, MAX_N, mergeSort, num, temp, 0, MAX_N - 1);
+//    mergeSort(arr, temp, 0, MAX_N - 1);
+//    for (int i = 0; i < MAX_N; i++) {
+//        printf("%d ",arr[i]);
+//    }
+    
 #undef MAX_N
     
     return 0;
