@@ -8,7 +8,7 @@
 __typeof(a) __temp = a; \
 a = b; b = __temp; \
 }
-
+// https://github.com/andyRon/swift-algorithm-club-cn/tree/master/Heap 之前学过swift algorithm 这个讲的比较清楚
 /*
  原数组：    [ 5, 13, 2, 25, 7, 17, 20, 8, 4 ]
  构建最大堆： [ 25, 13, 20, 8, 7, 17, 2, 5, 4 ]
@@ -44,7 +44,7 @@ void heap_sort(int *arr, int n) {
     for (int i = n >> 1; i >= 1; i--) {
         downUpdate(arr, n, i);
     }
-    //排序
+    //排序, 堆删除堆顶元素用到shift down, 插入元素用到shift up
     for (int i = n; i > 1; i--) {
         swap(arr[i], arr[1]);
         downUpdate(arr, i - 1, 1);
