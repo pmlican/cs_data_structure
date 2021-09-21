@@ -40,7 +40,7 @@ void downUpdate(int *arr, int n, int ind) {
 
 void heap_sort(int *arr, int n) {
     arr -= 1;
-    //构建最大堆
+    //构建最大堆, 跳过n/2 到 n-1 叶子节点，从非叶子节点做shift down操作，比直接使用insert来构建堆时间复杂度度为 O(nlogn)，这样时间复杂度降为 O(n)
     for (int i = n >> 1; i >= 1; i--) {
         downUpdate(arr, n, i);
     }
