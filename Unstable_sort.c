@@ -57,6 +57,29 @@ void quick_sort(int *num, int l, int r) {
     return;
 }
 
+//单边递归
+void quick_sort_optimize(int *num, int l, int r) {
+    while (l < r) {
+        int x = l, y = r, z = num[(l + r) >> 1]; //基准值取中间
+        do {
+            while (num[x] < z) { //无监督
+                x++;
+            }
+            while (num[y] > z) {
+                y--;
+            }
+            if (x <= y) {
+                swap(num[x], num[y]);
+                x++;
+                y--;
+            }
+        } while (x <= y);
+        quick_sort_optimize(num, l, y);
+        l = x;
+    }
+    return;
+}
+
 
 void output(int *num, int n) {
     printf("[");
@@ -73,7 +96,7 @@ void randint(int *num, int n) {
     while (n--) num[n] = rand() % 100;
 }
 
-int main() {
+void test_quick_sort() {
     srand(time(0));
 #define MAX_N 20
     int arr[MAX_N];
@@ -81,6 +104,29 @@ int main() {
     TEST(arr, MAX_N, select_sort, num, MAX_N);
     TEST(arr, MAX_N, quick_sort, num, 0, MAX_N - 1);
 #undef MAX_N
+}
 
+#define TEST_MAX 100000
+
+void init_arr(int *arr, int n) {
+    for (int i = 0; i < n; i++) {
+        arr[i] = n - i;
+    }
+}
+// time ./a.out > out1
+//分别测试1000 10000 100000
+// ./a.out > out1  0.00s user 0.00s system 49% cpu 0.009 total
+// ./a.out > out1  0.13s user 0.00s system 8% cpu 1.586 total
+// ./a.out > out1  12.81s user 0.05s system 91% cpu 14.089 total
+// ./a.out > out2  0.02s user 0.00s system 4% cpu 0.699 total
+
+int main() {
+    int arr[TEST_MAX] = {0};
+    init_arr(arr, TEST_MAX);
+    quick_sort_optimize(arr, 0, TEST_MAX - 1);
+    output(arr, TEST_MAX);
     return 0;
 }
+
+
+
