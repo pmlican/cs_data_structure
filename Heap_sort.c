@@ -10,6 +10,29 @@ a = b; b = __temp; \
 }
 // https://github.com/andyRon/swift-algorithm-club-cn/tree/master/Heap 之前学过swift algorithm 这个讲的比较清楚
 /*
+
+ 10 7 2 5 1
+ ----------
+ 0 1 2 3 4
+ parent[i] = floor((i -1)/2)
+ left[i] = 2i + 1
+ right[i] = 2i + 2
+ 
+ 另外一种表达方式： arr - 1, arr地址向左移动一位
+ -1 10 7 2 5 1
+ -------------
+  0 1  2 3 4 5
+  parent[i] = floor(i/2)
+  left[i] = 2i
+  right[i] = 2i + 1
+  ------------
+    10
+  /   \
+  7    2
+ / \
+5  1
+*/
+/*
  原数组：    [ 5, 13, 2, 25, 7, 17, 20, 8, 4 ]
  构建最大堆： [ 25, 13, 20, 8, 7, 17, 2, 5, 4 ]
  排序：
